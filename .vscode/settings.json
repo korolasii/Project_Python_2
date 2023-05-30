@@ -5,16 +5,7 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "username": "user1",
             "name": "Project_Python_2",
-            "database": "Project_Python_2_db"
-        },
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "Project_Python",
             "database": "Project_Python_2_db",
             "username": "user_2"
         }
