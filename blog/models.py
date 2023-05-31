@@ -14,8 +14,8 @@ class Article(models.Model):
         return f'{self.title}'
     
     class Meta:
-        verbose_name = 'Cтатья'
-        verbose_name_plural = 'Cтатьи'
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
     
 class Category(models.Model):
     name = models.CharField(max_length=255)
