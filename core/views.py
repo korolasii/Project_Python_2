@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from blog.models import Article
+from blog.models import *
 
-# Create your views here.
+
 def frontpage(request):
     articles = Article.objects.all()
-    return render(request, 'core/frontpage.html', {'articles': articles})
+    tags = Tag.objects.all()
+    return render(request, 'core/frontpage.html', {'articles': articles, 'tags':tags})
 
 def about(request):
     personals = [
