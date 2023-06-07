@@ -6,7 +6,7 @@ from .models import Article
 
 def details(request, slug):
     article = get_object_or_404(Article, slug=slug, status='active')
-
+    articles = Article.objects.all()
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -17,25 +17,30 @@ def details(request, slug):
     else:
         form = CommentForm()
 
-    return render(request, 'blog/details.html', {'article': article, 'form': form})
+    return render(request, 'blog/details.html', {'articles': articles,'article': article, 'form': form})
 
 def random_article(request):
+    articles = Article.objects.all()
     article = Article.objects.filter(status='active').order_by('?').first()
-    return render(request, 'blog/details.html', {'article': article})
+    return render(request, 'blog/details.html', {'articles': articles,'article': article})
 
 def articles_list(request):
+    articles = Article.objects.all()
     articles = Article.objects.filter(status='active')
-    return render(request, 'blog/list.html', {'articles': articles,'title': "Blog - головна сторінка"})
+    return render(request, 'blog/list.html', {'articles': articles,'articles': articles,'title': "Blog - головна сторінка"})
 
 def articles_tag_list(request, tag):
+    articles = Article.objects.all()
     articles = Article.objects.filter(tags__name=tag, status='active')
-    return render(request, 'blog/articles_tag_list.html', {'articles': articles, 'title': tag})
+    return render(request, 'blog/articles_tag_list.html', {'articles': articles,'articles': articles, 'title': tag})
 
 def articles_category_list(request, category):
-    articles = Article.objects.filter(category__name=category, status='active')
-    return render(request, 'blog/articles_category_list.html', {'articles': articles, 'title': category})
+    articles = Article.objects.all()
+    searcharticles = Article.objects.filter(category__name=category, status='active')
+    return render(request, 'blog/articles_category_list.html', {'articles': articles, 'searcharticles': searcharticles, 'title': category})
 
 def search(request):
+   articles = Article.objects.all()
    query = request.GET.get('query', '')
-   articles = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) | Q(content_preview__icontains=query) | Q(tags__name__icontains=query) | Q(category__name__icontains=query), status='active')
-   return render(request, 'blog/search.html', {'articles': articles, 'title': "Пошук по сайту", 'query': query})
+   searcharticles = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) | Q(content_preview__icontains=query) | Q(tags__name__icontains=query) | Q(category__name__icontains=query), status='active')
+   return render(request, 'blog/search.html', {'articles': articles, 'searcharticles': searcharticles, 'title': "Пошук по сайту", 'query': query})

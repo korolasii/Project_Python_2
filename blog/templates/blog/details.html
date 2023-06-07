@@ -13,7 +13,7 @@
         <a href='{% url "articles_tag_list" tag=tag.slug %}'>#{{tag.name}}</a> 
         {% endfor %}
     </p>
-    <p>Категорія: <a href='{% url "articles_category_list" category=article.category.slug %}'>{{article.category.name}}</a></p>
+    <p>Категорія: <a href='{% url "articles_category_list" category=article.category.name %}'>{{article.category.name}}</a></p>
     <p>{{article.content}}</p>
 
     <h3>Додати коментар</h3>
@@ -34,4 +34,15 @@
         <p>Коментарів немає</p>
     {% endfor %}
 
+{% endblock %}
+
+{% block category_blog %} 
+    <h1>Category</h1>
+    <div class="row row-cols-5 g-3">
+        {% for article in articles %}
+            <div class="col">
+                {{article.category}}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
