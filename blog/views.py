@@ -2,7 +2,12 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CommentForm
 from .models import Article
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+@login_required()
+def details(request, slug):
+    article = get_object_or_404(Article, slug=slug, status='active')
 
 def details(request, slug):
     article = get_object_or_404(Article, slug=slug, status='active')
@@ -25,9 +30,16 @@ def random_article(request):
     return render(request, 'blog/details.html', {'articles': articles,'article': article})
 
 def articles_list(request):
+    if not request.user.is_authenticated:
+        return render(request, 'blog/error_login.html', {'title': "Помилка доступу"})
     articles = Article.objects.all()
     articles = Article.objects.filter(status='active')
     return render(request, 'blog/list.html', {'articles': articles,'articles': articles,'title': "Blog - головна сторінка"})
+
+@login_required()
+def articles_tag_list(request, tag):
+    articles = Article.objects.filter(tags__name=tag, status='active')
+    return render(request, 'blog/articles_tag_list.html', {'articles': articles, 'title': tag})
 
 def articles_tag_list(request, tag):
     articles = Article.objects.all()
@@ -38,7 +50,7 @@ def articles_category_list(request, category):
     articles = Article.objects.all()
     searcharticles = Article.objects.filter(category__name=category, status='active')
     return render(request, 'blog/articles_category_list.html', {'articles': articles, 'searcharticles': searcharticles, 'title': category})
-
+@login_required()
 def search(request):
    articles = Article.objects.all()
    query = request.GET.get('query', '')
