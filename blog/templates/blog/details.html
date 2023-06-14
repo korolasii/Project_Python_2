@@ -5,12 +5,14 @@
 {% block content %}
     {% if article.image %}
         <img src="{{article.image.url}}" alt="{{article.title}}" height="500px" class="object-fit-cover">
+        
     {% endif %}
+    
     {% if user.is_authenticated and user == article.author %}
-        <div class = "my-3">
-            <a class="btn btn-primary" href="{% url 'articles_update' article.slug %}">Редагувати</a>
-            <a class="btn btn-danger" href="{% url 'articles_delete' article.slug %}">Видалити</a>
-        </div>
+    <div class = "my-3">
+        <a class="btn btn-primary" href="{% url 'articles_update' article.slug %}">Редагувати</a>
+        <a class="btn btn-danger" href="{% url 'articles_delete' article.slug %}">Видалити</a>
+    </div>
     {% endif %}
     <h1>{{article.title}}</h1>
     <p>Автор: {{article.author.username }}</p>
@@ -20,9 +22,10 @@
         <a href='{% url "articles_tag_list" tag=tag.slug %}'>#{{tag.name}}</a> 
         {% endfor %}
     </p>
-    <p>Категорія: <a href='{% url "articles_category_list" category=article.category.name %}'>{{article.category.name}}</a></p>
-    <p>{{article.content}}</p>
-
+    <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
+    <hr>
+    <p>{{article.content|safe}}</p>
+    <hr>
     <h3>Додати коментар</h3>
     <form method="post">
         {% csrf_token %}
@@ -41,15 +44,4 @@
         <p>Коментарів немає</p>
     {% endfor %}
 
-{% endblock %}
-
-{% block category_blog %} 
-    <h1>Category</h1>
-    <div class="row row-cols-5 g-3">
-        {% for article in articles %}
-            <div class="col">
-                {{article.category}}
-            </div>
-        {% endfor %}
-    </div>
 {% endblock %}
