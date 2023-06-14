@@ -2,6 +2,28 @@
 
 {% block title %} Home {% endblock %}
 
+{% block category_blog %} 
+    <h1>Category</h1>
+    <div class="row row-cols-5 g-3">
+        {% for article in articles %}
+            <div class="col">
+                {{article.category}}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block tag_blog %} 
+    <h1>Tag</h1>
+    <div class="row row-cols-5 g-3">
+        {% for tag in tags %}
+            <div class="col">
+                {{tag.name}}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+    
 {% block content %}
     <h1>Home</h1>
     <div class="row row-cols-3 g-3">
@@ -12,13 +34,13 @@
                     <div class="card-body">
                     <h5 class="card-title">{{article.title}}</h5>
                     <p class="card-text">{{article.content_preview}}</p>
-                    <a href="{% url 'details' article.id %}" class="card-link">See more</a>
+                    <a href="{% url 'details' article.slug %}" class="card-link">See more</a>
                     </div>
                 </div>
             </div>
         {% endfor %}
-          
     </div>
+
 {% endblock %}
 
 
