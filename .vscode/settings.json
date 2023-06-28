@@ -1,13 +1,3 @@
 {
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "Project_Python_2",
-            "database": "Project_Python_2_db",
-            "username": "user_2"
-        }
-    ]
+    "todo-tree.tree.showBadges": false
 }

@@ -16,18 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import *
-from blog.urls import urlpatterns as blog_urls
 from django.conf.urls.static import static
 from django.conf import settings
+
+from apps.core.views import frontpage, about
+from apps.blog.urls import urlpatterns as blog_urls
 from django.contrib.auth import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', frontpage, name = 'home'),
-    path('about/', about, name = 'about'),
-    path('pricing/', pricing, name = 'pricing'),
-    path('contact/', contacts, name = 'contact'),
+    path('', frontpage, name='index'),
+    path('about/', about, name='about'),
     path('blog/', include(blog_urls)),
-    path('members/', include('members.urls')),
+    path('members/', include('apps.members.urls')), 
+    path('shop/', include('apps.shop.urls')),
+    path('catalog/', include('apps.catalog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

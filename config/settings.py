@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$0g!euom()l&+hz(9o2(sqmw3%%znz_$b75#!7u+1$6v%v3l*o'
+SECRET_KEY = 'django-insecure-ntag=n-^bktll^bnfos2@mkr56!u)#4jd@t^e!gh-n3sa41kh*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
-    'blog.apps.BlogConfig',
-    'members'
+    
+    'ckeditor',
+    'mptt',
+    'imagekit',
+    
+    'apps.core.apps.CoreConfig',
+    'apps.blog.apps.BlogConfig',
+    'apps.members.apps.MembersConfig',
+    'apps.catalog.apps.CatalogConfig',
+    'apps.shop.apps.ShopConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -54,13 +62,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,13 +87,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Project_Python_2_db',
-        'USER': 'user_2',
-        'PASSWORD': '8642',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': 'timenought_store_db',
+        'USER': 'timenought_store_db_user',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'        
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -125,6 +131,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
@@ -133,3 +142,15 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 1200
+    },
+}
