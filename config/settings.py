@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'timenought_store_db',
-        'USER': 'timenought_store_db_user',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'        
+        'NAME': 'Project_Python_2_db',
+        'USER': 'user_2',
+        'PASSWORD': '8642',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
